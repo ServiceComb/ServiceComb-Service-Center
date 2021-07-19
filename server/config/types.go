@@ -32,7 +32,8 @@ type AppConfig struct {
 	Server *ServerConfig `yaml:"server"`
 }
 type Gov struct {
-	DistOptions []DistributorOptions `yaml:"plugins"`
+	DistOptions []DistributorOptions          `yaml:"plugins"`
+	DistMap     map[string]DistributorOptions `yaml:",inline"`
 }
 type DistributorOptions struct {
 	Name     string `yaml:"name"`
