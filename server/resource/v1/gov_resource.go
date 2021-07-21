@@ -100,7 +100,7 @@ func (t *Governance) ListOrDisPlay(w http.ResponseWriter, r *http.Request) {
 	var body []byte
 	var err error
 	if kind == DisplayKey {
-		body, err = gov.Display(project, app, environment)
+		body, err = gov.Display(project, app, environment, r)
 	} else {
 		body, err = gov.List(kind, project, app, environment)
 	}
@@ -131,7 +131,7 @@ func (t *Governance) Delete(w http.ResponseWriter, r *http.Request) {
 	kind := query.Get(KindKey)
 	id := query.Get(IDKey)
 	project := query.Get(ProjectKey)
-	err := gov.Delete(kind, id, project)
+	err := gov.Delete(kind, id, project, r)
 	if err != nil {
 		processError(w, err, "delete gov err")
 		return
