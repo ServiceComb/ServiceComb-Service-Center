@@ -52,7 +52,7 @@ func init() {
 		log.Fatal("", err)
 	}
 }
-func TestAuthResource_Login(t *testing.T) {
+func TestGovernance_Create(t *testing.T) {
 	err := archaius.Init(archaius.WithMemorySource(), archaius.WithENVSource())
 	assert.NoError(t, err)
 
@@ -62,8 +62,8 @@ func TestAuthResource_Login(t *testing.T) {
 	t.Run("create policy", func(t *testing.T) {
 		b, _ := json.Marshal(&gov.Policy{
 			GovernancePolicy: &gov.GovernancePolicy{Name: "test"},
-			Spec: &gov.LBSpec{
-				Bo: &gov.BackOffPolicy{InitialInterval: 1}}})
+			Spec: map[string]interface{}{
+				"backoff": &gov.BackOffPolicy{InitialInterval: 1}}})
 
 		r, _ := http.NewRequest(http.MethodPost, "/v1/default/gov/loadBalancer", bytes.NewBuffer(b))
 		w := httptest.NewRecorder()
